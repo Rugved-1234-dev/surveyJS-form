@@ -84,7 +84,11 @@ survey.onValueChanged.add(function (sender, options) {
       .then((res) => res.json())
       .then((response) => {
         const slotQuestion = sender.getQuestionByName("Slots");
-        slotQuestion.choices = response.data.map((res) => {
+        const filteredSlots  = response.data.filter((slot) => {
+          return slot.Availability == true;
+        })
+        console.log(filteredSlots);
+        slotQuestion.choices = filteredSlots.map((res) => {
           return { value: res["Time Slot"], text: res["Time Slot"] };
         });
 
